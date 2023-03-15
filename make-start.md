@@ -161,7 +161,7 @@ main:*.c
     ├── [makefile](./example/make-test/src/makefile)
     └── [src.c](./example/make-test/src/src.c)
 
-
+> 想要尽量减少 `makefile` 的情况下，就会增加一个 `makefile` 中出现的 `&&` 连接命令
 
 
 

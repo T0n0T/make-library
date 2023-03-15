@@ -4,7 +4,7 @@ CC = gcc
 SUBDIRS = src \
         lib \
         main \
-		build 
+		# build 
 #预定义目标
 OBJS = src.o lib.o main.o
 BIN = hello
@@ -13,15 +13,14 @@ BIN_DIR = bin
 #传递预定义参数
 export CC OBJS BIN OBJS_DIR BIN_DIR
 
-all:CHECK_DIR $(SUBDIRS) 
+all:CHECK_DIR $(SUBDIRS) BUILD
 CHECK_DIR:
 	@mkdir -p $(BIN_DIR)
 	@mkdir -p $(OBJS_DIR)
 $(SUBDIRS):ECHO
 	@make -C $@
-
-# ./$(BIN_DIR)/$(BIN) : ./$(OBJS_DIR)/$(OBJS)
-# 	@$(CC) $^ -o $@ 
+BUILD:
+	@cd ./$(OBJS_DIR) && $(CC) $(OBJS) -o ../$(BIN_DIR)/$(BIN)
 
 ECHO:
 	@echo $(SUBDIRS)
