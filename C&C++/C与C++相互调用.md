@@ -5,17 +5,7 @@
 3. 还需要注意，并不是说 `__cpluscplus` 是g++编译器才会定义的宏，确切的说，是只有以c++编译的方式去编译文件的宏才会定义的宏，这样说来，gcc编译.cpp文件、g++编译.c、.cpp文件,这个  `__cplusplus`都会被编译器定义。
 
 #### c++调用c程序
-1. 假设c程序是之前写好的具有价值的静态库，该库是由add.o和sub.o编译而成，而add.c和sub.c是由c语言写的，最后
-```shell
-# 打包静态库.a
-$ gcc -c add.c
-$ gcc -c sub.c
-$ ar cqs libadd.a *.o
-
-# 若要编译成动态库，则
-$ gcc -shared -fPIC *.o -o libadd.so
-```
-
+1. 假设c程序是之前写好的具有价值的静态库，该库是由add.o和sub.o编译而成，而add.c和sub.c是由c语言写的
 - add.h和add.c
 ```c
 //add.h
@@ -71,3 +61,19 @@ int main(void)
 
 
 >  cpp编译器是兼容c语言的编译方式的，所以在编译cpp文件的时候，调用到.c文件的函数的地方时，需要用extern "C"指定用c语言的方式去编译它
+>  注意，extern “C”是g++才具有的关键字，gcc并没有，所以如果用gcc编译cpp而不加以宏判断直接使用extern “C”那么就会出现语法错误
+
+3. 编译文件，完成C++调用C函数
+```bash
+# 打包静态库.a
+gcc -c add.c
+gcc -c sub.c
+ar cqs libadd.a *.o
+
+# 若要编译成动态库，则
+gcc -shared -fPIC *.o -o libadd.so
+
+# c++联合c库编译
+g++ main.cpp -L./ -ladd -o main
+```
+
