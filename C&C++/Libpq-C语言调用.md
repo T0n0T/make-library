@@ -91,3 +91,4 @@ int main(void)
 > 使用`gcc main.c -lpq -I/usr/include/postgresql -o main`编译
 
 可以发现，`libpq`本质上就是一个连接器，具体的操作执行仍然是使用`sql`语句，相当于为C打开了`postgresql`最顶层的控制界面。
+
